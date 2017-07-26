@@ -49,21 +49,35 @@ namespace DiscordBot
             _client.MessageReceived += MessageReceived;
             _client.GuildMemberUpdated += GuildMemberUpdated;
 
+            _client.GuildAvailable += GuildAvailable;
             Console.ReadLine();
 
         }
 
         private async Task GuildMemberUpdated(SocketGuildUser oldInfo, SocketGuildUser newInfo)
         {
-            bool inGame = newInfo.Game.HasValue;
-            IRole inGameRole = _client.GetGuild(newInfo.Guild.Id).Roles.FirstOrDefault(x => x.Name == "In Game");
+            await UpdateInGame(newInfo);
+        }
+
+        private async Task GuildAvailable(SocketGuild guild)
+        {
+            foreach (SocketGuildUser user in guild.Users)
+            {
+                await UpdateInGame(user);
+            }
+        }
+
+        private async Task UpdateInGame(SocketGuildUser user)
+        {
+            bool inGame = user.Game.HasValue;
+            IRole inGameRole = _client.GetGuild(user.Guild.Id).Roles.FirstOrDefault(x => x.Name == "In Game");
             if (inGame)
             {
-                await newInfo.AddRoleAsync(inGameRole);
+                await user.AddRoleAsync(inGameRole);
             }
             else
             {
-                await newInfo.RemoveRoleAsync(inGameRole);
+                await user.RemoveRoleAsync(inGameRole);
             }
         }
 
