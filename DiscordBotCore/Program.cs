@@ -11,6 +11,12 @@ using Microsoft.Extensions.Configuration;
 using Discord.WebSocket;
 using System.Text.RegularExpressions;
 using DiscordBotCore.ChatBot;
+using System.Net.Sockets;
+using Newtonsoft.Json;
+using DiscordBotCore;
+using System.Net.NetworkInformation;
+using System.Net;
+using DiscordBotCore.AdminBot;
 
 namespace DiscordBot
 {
@@ -19,7 +25,8 @@ namespace DiscordBot
         public static IConfigurationRoot Configuration { get; set; }
         private DiscordSocketClient _client;
         private ChatBot chatBot;
-        private const string BotUsername = "Sorrien Bot";
+        private AdminBot adminBot;
+        private string BotUsername;
 
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
@@ -28,8 +35,8 @@ namespace DiscordBot
         {
             var builder = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("commands.json", false, true)
-             .AddJsonFile("authentication.json", false, false); //git ignore this file
+             .AddJsonFile("authentication.json", false, false)
+             .AddJsonFile("profanity.json", false, true);
 
             Configuration = builder.Build();
 
@@ -40,18 +47,18 @@ namespace DiscordBot
             _client.Log += Log;
 
             string token = Configuration["auth:token"];
+            BotUsername = Configuration["auth:BotUsername"];
 
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
             chatBot = new ChatBot();
-
+            adminBot = new AdminBot();
             _client.MessageReceived += MessageReceived;
             _client.GuildMemberUpdated += GuildMemberUpdated;
 
             _client.GuildAvailable += GuildAvailable;
-            Console.ReadLine();
-
+            await Task.Delay(-1);
         }
 
         private async Task GuildMemberUpdated(SocketGuildUser oldInfo, SocketGuildUser newInfo)
@@ -89,44 +96,62 @@ namespace DiscordBot
 
         private async Task MessageReceived(SocketMessage message)
         {
-            string prefix = Configuration["options:prefix"];
-            string content = SanitizeContent(message);
-            if (content.Substring(0, 1) == prefix)
+            string content = SanitizeContent(message.Content);
+            bool sfw = IsSafeForWork(content);
+            string response = "";
+            //if (!sfw)
+            //{
+            //    await message.DeleteAsync();
+            //}
+            if (content.Substring(0, 1) == adminBot.CommandPrefix)
             {
-                int commandIndex = 0;
-                bool nullCommand = false;
-                while (!nullCommand)
-                {
-                    string sharedKey = "commands:" + commandIndex + ":";
-                    string commandName = Configuration[sharedKey + "Command"];
-                    nullCommand = commandName == null;
-                    if (nullCommand)
-                    {
-                        break;
-                    }
-                    else if (content.Substring(1, content.Length - 1) == commandName)
-                    {
-                        string response = Configuration[sharedKey + "Response"];
-                        await message.Channel.SendMessageAsync(message.Author.Mention + " " + response);
-                        break;
-                    }
-                    else
-                    {
-                        commandIndex++;
-                    }
-                }
+                string command = content.Substring(1, content.Length - 1);
+                response = adminBot.RunCommand(command, message);
             }
             else if (message.MentionedUsers.SingleOrDefault(x => x.Username == BotUsername) != null && message.Author.Username != BotUsername)
             {
-                string response = chatBot.GetResponse(content, message.Author.Username + message.Author.Id);
-                await message.Channel.SendMessageAsync(message.Author.Mention + " " + response);
+                if (sfw)
+                {
+                    response = await chatBot.GetResponse(content, message.Author.Username + message.Author.Id);
+                }
+                else
+                {
+                    response = "I don't feel comfortable talking about that.";
+                }
+                response = message.Author.Mention + " " + response;
+            }
+            if (!string.IsNullOrEmpty(response))
+            {
+                await message.Channel.SendMessageAsync(response);
             }
         }
 
-        public string SanitizeContent(SocketMessage message)
+        private bool IsSafeForWork(string content)
         {
-            string sanitized = message.Content;
+            bool safe = true;
+
+            IConfigurationSection profanitySection = Configuration.GetSection("Profanity");
+            var profanityList = profanitySection.AsEnumerable();
+            foreach (var bad in profanityList)
+            {
+                if (bad.Value != null && content.Contains(bad.Value))
+                {
+                    safe = false;
+                    break;
+                }
+            }
+
+            return safe;
+        }
+
+        private string SanitizeContent(string message)
+        {
+            string sanitized = message;
             sanitized = Regex.Replace(sanitized, "<.*?>", string.Empty);
+            if (sanitized.Substring(0, 1) == " ")
+            {
+                sanitized = sanitized.Substring(1, sanitized.Length - 1);
+            }
             return sanitized;
         }
     }

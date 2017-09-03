@@ -1,0 +1,10 @@
+﻿{
+  "Servers": [
+    {
+      "Name": "server name",
+      "Address": "ip address",
+      "Port": "port number",
+      "Restart": "batch file path"
+    }
+  ]
+}
