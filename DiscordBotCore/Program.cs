@@ -27,7 +27,9 @@ namespace DiscordBot
         private ChatBot chatBot;
         private AdminBot adminBot;
         private string BotUsername;
-
+        private IRole inGameRole;
+        private IRole streamingRole;
+        private bool FirstConnect;
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -42,7 +44,8 @@ namespace DiscordBot
 
             _client = new DiscordSocketClient(new DiscordSocketConfig()
             {
-                LogLevel = LogSeverity.Info
+                LogLevel = LogSeverity.Info,
+                DefaultRetryMode = RetryMode.AlwaysRetry,
             });
             _client.Log += Log;
 
@@ -57,7 +60,9 @@ namespace DiscordBot
             _client.MessageReceived += MessageReceived;
             _client.GuildMemberUpdated += GuildMemberUpdated;
 
+            FirstConnect = true;
             _client.GuildAvailable += GuildAvailable;
+            
             await Task.Delay(-1);
         }
 
@@ -66,25 +71,50 @@ namespace DiscordBot
             await UpdateInGame(newInfo);
         }
 
-        private async Task GuildAvailable(SocketGuild guild)
+        private Task GuildAvailable(SocketGuild guild)
         {
-            foreach (SocketGuildUser user in guild.Users)
+            if (FirstConnect)
             {
-                await UpdateInGame(user);
+                FirstConnect = false;
+                foreach (SocketGuildUser user in guild.Users)
+                {
+                    Task.Run(async () => await UpdateInGame(user));
+                }
             }
+
+            return Task.FromResult(0);
         }
 
         private async Task UpdateInGame(SocketGuildUser user)
         {
             bool inGame = user.Game.HasValue;
-            IRole inGameRole = _client.GetGuild(user.Guild.Id).Roles.FirstOrDefault(x => x.Name == "In Game");
+
+            if (inGameRole == null)
+            {
+                inGameRole = _client.GetGuild(user.Guild.Id).Roles.FirstOrDefault(x => x.Name == "In Game");
+            }
+
+            if (streamingRole == null)
+            {
+                streamingRole = _client.GetGuild(user.Guild.Id).Roles.FirstOrDefault(x => x.Name == "Streaming");
+            }
+
             if (inGame)
             {
+                if (user.Game.Value.StreamType != StreamType.NotStreaming)
+                {
+                    await user.AddRoleAsync(streamingRole);
+                }
+                else
+                {
+                    await user.RemoveRoleAsync(streamingRole);
+                }
                 await user.AddRoleAsync(inGameRole);
             }
             else
             {
                 await user.RemoveRoleAsync(inGameRole);
+                await user.RemoveRoleAsync(streamingRole);
             }
         }
 
