@@ -166,11 +166,6 @@
     },
 
     {
-      "RoleId": "Video Editor",
-      "EmojiId": "📹"
-    },
-
-    {
       "RoleId": "Streamer",
       "EmojiId": "🎙"
     },
