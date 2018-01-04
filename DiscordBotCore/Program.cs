@@ -29,7 +29,7 @@ namespace DiscordBot
         private string BotUsername;
         private IRole inGameRole;
         private IRole streamingRole;
-        private bool FirstConnect;
+        private SocketGuild CurrentGuild; 
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -59,10 +59,11 @@ namespace DiscordBot
             adminBot = new AdminBot();
             _client.MessageReceived += MessageReceived;
             _client.GuildMemberUpdated += GuildMemberUpdated;
+            _client.ReactionAdded += ReactionRoleAdd;
+            _client.ReactionRemoved += ReactionRoleRemove;
 
-            FirstConnect = true;
             _client.GuildAvailable += GuildAvailable;
-            
+
             await Task.Delay(-1);
         }
 
@@ -73,15 +74,7 @@ namespace DiscordBot
 
         private Task GuildAvailable(SocketGuild guild)
         {
-            if (FirstConnect)
-            {
-                FirstConnect = false;
-                foreach (SocketGuildUser user in guild.Users)
-                {
-                    Task.Run(async () => await UpdateInGame(user));
-                }
-            }
-
+            CurrentGuild = guild;
             return Task.FromResult(0);
         }
 
@@ -115,6 +108,34 @@ namespace DiscordBot
             {
                 await user.RemoveRoleAsync(inGameRole);
                 await user.RemoveRoleAsync(streamingRole);
+            }
+        }
+
+        private async Task ReactionRoleAdd(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            if(message.Id == 389157769397272577 || message.Id == 389158652285812736 || message.Id == 389158814739464204)
+            {
+                var OrigMessage = await message.DownloadAsync();
+                var GuildUser = CurrentGuild.GetUser(reaction.UserId);
+                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction));
+                if (role != null)
+                {
+                    await GuildUser.AddRoleAsync(role);
+                }
+            }
+        }
+
+        private async Task ReactionRoleRemove(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            if (message.Id == 389157769397272577 || message.Id == 389158652285812736 || message.Id == 389158814739464204)
+            {
+                var OrigMessage = await message.DownloadAsync();
+                var GuildUser = CurrentGuild.GetUser(reaction.UserId);
+                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction));
+                if (role != null)
+                {
+                    await GuildUser.RemoveRoleAsync(role);
+                }
             }
         }
 

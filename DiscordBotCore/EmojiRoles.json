@@ -1,0 +1,218 @@
+ {
+    "EmojiRoles": [
+        {
+            "RoleId": "Bounty Hunting", 
+            "EmojiId": "🤠"
+        },
+
+        {
+            "RoleId": "Combat Medic", 
+            "EmojiId": "🚑"
+        },
+
+        {
+            "RoleId": "Militia", 
+            "EmojiId": "💂"
+        },
+
+        {
+            "RoleId": "Patrol", 
+            "EmojiId": "🚓"
+        },
+
+        {
+            "RoleId": "Piracy", 
+            "EmojiId": "<:Pirate:370278411479941121>"
+        },
+
+        {
+            "RoleId": "Vanduul Hunting", 
+            "EmojiId": "👾"
+        },
+
+        {
+            "RoleId": "Arena Commander", 
+            "EmojiId": "🏅"
+        },
+
+        {
+            "RoleId": "Racing", 
+            "EmojiId": "🏁"
+        },
+
+        {
+            "RoleId": "Star Marine",
+            "EmojiId": "🔫" 
+        },
+
+        {
+            "RoleId": "Farming", 
+            "EmojiId": "🥔"
+        },
+
+        {
+            "RoleId": "Investing", 
+            "EmojiId": "📈"
+        },
+
+        {
+            "RoleId": "Mercantile", 
+            "EmojiId": "🏪"
+        },
+
+        {
+            "RoleId": "Mining", 
+            "EmojiId": "⛏"
+        },
+
+        {
+            "RoleId": "Refueling", 
+            "EmojiId": "⛽"
+        },
+
+        {
+            "RoleId": "Repair", 
+            "EmojiId": "🛠"
+        },
+
+        {
+            "RoleId": "Salvage", 
+            "EmojiId": "🏚"
+        },
+
+        {
+            "RoleId": "Alien Expert", 
+            "EmojiId": "👽"
+        },
+
+        {
+            "RoleId": "Deep Space Exploration", 
+            "EmojiId": "🌑"
+        },
+
+        {
+            "RoleId": "Prospecting", 
+            "EmojiId": "💎"
+        },
+
+        {
+            "RoleId": "Search & Rescue", 
+            "EmojiId": "⛑"
+        },
+
+        {
+            "RoleId": "Drug Manufacturing", 
+            "EmojiId": "💉"
+        },
+
+        {
+            "RoleId": "Engineering", 
+            "EmojiId": "👷"
+        },
+
+        {
+            "RoleId": "Health & Healing", 
+            "EmojiId": "🏥"
+        },
+
+        {
+            "RoleId": "Overclocking", 
+            "EmojiId": "🚀"
+        },
+
+        {
+            "RoleId": "Research", 
+            "EmojiId": "🔬"
+        },
+
+        {
+            "RoleId": "Diplomacy", 
+            "EmojiId": "👔"
+        },
+
+        {
+            "RoleId": "Intel & Recon", 
+            "EmojiId": "🌫"
+        },
+
+        {
+            "RoleId": "Reporting", 
+            "EmojiId": "📰" 
+        },
+
+        {
+            "RoleId": "Inforunning", 
+            "EmojiId": "🛰"
+        },
+
+        {
+            "RoleId": "Light Shipping", 
+            "EmojiId": "🚚"
+        },
+
+        {
+            "RoleId": "Luxury Touring", 
+            "EmojiId": "🛳"
+        },
+
+        {
+            "RoleId": "Mass Shipping", 
+            "EmojiId": "✈"
+        },
+
+        {
+            "RoleId": "Smuggling", 
+            "EmojiId": "🛅"
+        },
+
+        {
+            "RoleId": "Bug Smasher", 
+            "EmojiId": "🐛"
+        },
+
+        {
+            "RoleId": "Codeslinger", 
+            "EmojiId": "💻"
+        },
+
+        {
+            "RoleId": "Concierge", 
+            "EmojiId": "🎩"
+        },
+
+        {
+            "RoleId": "Lore Writer", 
+            "EmojiId": "✏"
+        },
+
+        {
+            "RoleId": "Dungeon Master", 
+            "EmojiId": "🐉" 
+        },
+
+        {
+            "RoleId": "DJ", 
+            "EmojiId": "🎧"
+        },
+
+        {
+            "RoleId": "Roleplayer", 
+            "EmojiId": "🎭"
+        },
+
+        {
+            "RoleId": "Streamer", 
+            "EmojiId": "🎙"
+        },
+
+        {
+            "RoleId": "Subscriber", 
+            "EmojiId": "👁‍🗨"
+        },
+        
+        {
+            "RoleId": "Video Editor", 
+            "EmojiId": "🎥"
+        }
+    ]
+ }

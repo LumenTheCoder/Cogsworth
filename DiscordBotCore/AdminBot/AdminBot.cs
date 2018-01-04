@@ -10,12 +10,14 @@ using System.IO;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 using System.Threading;
+using Discord;
 
 namespace DiscordBotCore.AdminBot
 {
     public class AdminBot
     {
         public static IConfigurationRoot Configuration { get; set; }
+        public IMessage RoleMessage { get; set; }
         public List<ServerModel> Servers
         {
             get
@@ -37,9 +39,24 @@ namespace DiscordBotCore.AdminBot
             var builder = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())
              .AddJsonFile("commands.json", false, true)
-             .AddJsonFile("servers.json", false, true);
+             .AddJsonFile("servers.json", false, true)
+             .AddJsonFile("EmojiRoles.json", false, true);
 
             Configuration = builder.Build();
+        }
+
+        public string GetRoleFromReaction(SocketReaction reaction)
+        {
+            var emojiRoles = new List<EmojiRoleModel>();
+            Configuration.GetSection("EmojiRoles").Bind(emojiRoles);
+
+            string RoleName = null;
+            EmojiRoleModel roleModel = emojiRoles.FirstOrDefault(x => x.EmojiId == reaction.Emote.Name);
+            if(roleModel != null)
+            {
+                RoleName = roleModel.RoleId;
+            }
+            return RoleName;
         }
 
         public string RunCommand(string command, SocketMessage message)
