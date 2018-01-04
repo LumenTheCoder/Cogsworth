@@ -11,16 +11,6 @@
     },
 
     {
-      "RoleId": "Militia",
-      "EmojiId": "💂"
-    },
-
-    {
-      "RoleId": "Patrol",
-      "EmojiId": "🚓"
-    },
-
-    {
       "RoleId": "Piracy",
       "EmojiId": "Pirate"
     },
@@ -51,11 +41,6 @@
     },
 
     {
-      "RoleId": "Investing",
-      "EmojiId": "📈"
-    },
-
-    {
       "RoleId": "Mercantile",
       "EmojiId": "🏪"
     },
@@ -78,11 +63,6 @@
     {
       "RoleId": "Salvage",
       "EmojiId": "🏚"
-    },
-
-    {
-      "RoleId": "Alien Expert",
-      "EmojiId": "👽"
     },
 
     {
@@ -121,16 +101,6 @@
     },
 
     {
-      "RoleId": "Diplomacy",
-      "EmojiId": "👔"
-    },
-
-    {
-      "RoleId": "Intel & Recon",
-      "EmojiId": "🌫"
-    },
-
-    {
       "RoleId": "Reporting",
       "EmojiId": "📰"
     },
@@ -141,17 +111,12 @@
     },
 
     {
-      "RoleId": "Light Shipping",
-      "EmojiId": "🚚"
-    },
-
-    {
       "RoleId": "Luxury Touring",
       "EmojiId": "🛳"
     },
 
     {
-      "RoleId": "Mass Shipping",
+      "RoleId": "Transport",
       "EmojiId": "✈"
     },
 
@@ -177,7 +142,7 @@
 
     {
       "RoleId": "Lore Writer",
-      "EmojiId": "✏"
+      "EmojiId": "📝"
     },
 
     {
@@ -193,6 +158,16 @@
     {
       "RoleId": "Roleplayer",
       "EmojiId": "🎭"
+    },
+
+    {
+      "RoleId": "Graphics Wizard",
+      "EmojiId": "✏"
+    },
+
+    {
+      "RoleId": "Video Editor",
+      "EmojiId": "📹"
     },
 
     {
