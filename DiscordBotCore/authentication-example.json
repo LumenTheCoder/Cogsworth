@@ -1,0 +1,8 @@
+﻿//rename this file authentication.json
+
+{
+  "auth": {
+    "token": "token",
+    "BotUsername": "botname#1234"
+  } 
+}
