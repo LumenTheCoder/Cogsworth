@@ -1,0 +1,123 @@
+{
+  "Games": [
+    {
+      "RoleId": "Arena Commander",
+      "EmojiId": "🏅"
+    },
+    
+    {
+      "RoleId": "Racing",
+      "EmojiId": "🏁"
+    },
+
+    {
+      "RoleId": "Star Marine",
+      "EmojiId": "🔫"
+    },
+
+    {
+      "RoleId": "Universe Mode",
+      "EmojiId": "ya_know"
+    },
+
+    {
+      "RoleId": "Absolver",
+      "EmojiId": "🥊"
+    },
+
+    {
+      "RoleId": "Black Desert Online",
+      "EmojiId": "🏜"
+    },
+
+    {
+      "RoleId": "Dark Souls",
+      "EmojiId": "🤸"
+    },
+
+    {
+      "RoleId": "Elder Scrolls Online",
+      "EmojiId": "🚶"
+    },
+
+    {
+      "RoleId": "Elite: Dangerous",
+      "EmojiId": "🌌"
+    },
+
+    {
+      "RoleId": "EVE Online",
+      "EmojiId": "🕵"
+    },
+
+    {
+      "RoleId": "Gwent",
+      "EmojiId": "🎴"
+    },
+
+    {
+      "RoleId": "Hellion",
+      "EmojiId": "🌃"
+    },
+
+    {
+      "RoleId": "League of Legends",
+      "EmojiId": "♋"
+    },
+
+    {
+      "RoleId": "Overwatch",
+      "EmojiId": "🦍"
+    },
+
+    {
+      "RoleId": "PUBG",
+      "EmojiId": "🍗"
+    },
+
+    {
+      "RoleId": "Quake",
+      "EmojiId": "🎯"
+    },
+
+    {
+      "RoleId": "Rainbow Six Siege",
+      "EmojiId": "⚜"
+    },
+
+    {
+      "RoleId": "Rocket League",
+      "EmojiId": "🏎"
+    },
+
+    {
+      "RoleId": "Space Engineers",
+      "EmojiId": "🏗"
+    },
+
+    {
+      "RoleId": "StarCraft",
+      "EmojiId": "👽"
+    },
+
+    {
+      "RoleId": "Stellaris",
+      "EmojiId": "👾"
+    },
+
+    {
+      "RoleId": "War Thunder",
+      "EmojiId": "🛩"
+    },
+
+    {
+      "RoleId": "World of Tanks",
+      "EmojiId": "🏕"
+    },
+
+    {
+      "RoleId": "World of Warships",
+      "EmojiId": "🚢"
+    }
+  ]
+}

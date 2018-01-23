@@ -6,11 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Commands;
-using DiscordBot.Models;
 using Microsoft.Extensions.Configuration;
 using Discord.WebSocket;
 using System.Text.RegularExpressions;
-using DiscordBotCore.ChatBot;
 using System.Net.Sockets;
 using Newtonsoft.Json;
 using DiscordBotCore;
@@ -24,7 +22,6 @@ namespace DiscordBot
     {
         public static IConfigurationRoot Configuration { get; set; }
         private DiscordSocketClient _client;
-        private ChatBot chatBot;
         private AdminBot adminBot;
         private string BotUsername;
         private IRole inGameRole;
@@ -37,8 +34,7 @@ namespace DiscordBot
         {
             var builder = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("authentication.json", false, false)
-             .AddJsonFile("profanity.json", false, true);
+             .AddJsonFile("authentication.json", false, false);
 
             Configuration = builder.Build();
 
@@ -55,7 +51,6 @@ namespace DiscordBot
             await _client.LoginAsync(TokenType.Bot, token);
             await _client.StartAsync();
 
-            chatBot = new ChatBot();
             adminBot = new AdminBot();
             _client.MessageReceived += MessageReceived;
             _client.GuildMemberUpdated += GuildMemberUpdated;
@@ -113,11 +108,31 @@ namespace DiscordBot
 
         private async Task ReactionRoleAdd(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            if(message.Id == 389157769397272577 || message.Id == 389158652285812736 || message.Id == 389158814739464204)
+            string Section = null;
+
+            switch (message.Id)
+            {
+                case 389157769397272577:
+                case 389158652285812736:
+                case 389158814739464204:
+                    Section = "Careers";
+                    break;
+
+                case 405497289704996876:
+                    Section = "Airlock";
+                    break;
+
+                case 402896764446834688:
+                case 402896898505310218:
+                    Section = "Games";
+                    break;
+            }
+
+            if (Section != null)
             {
                 var OrigMessage = await message.DownloadAsync();
                 var GuildUser = CurrentGuild.GetUser(reaction.UserId);
-                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction));
+                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction, Section));
                 if (role != null)
                 {
                     await GuildUser.AddRoleAsync(role);
@@ -127,11 +142,31 @@ namespace DiscordBot
 
         private async Task ReactionRoleRemove(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            if (message.Id == 389157769397272577 || message.Id == 389158652285812736 || message.Id == 389158814739464204)
+            string Section = null;
+
+            switch (message.Id)
+            {
+                case 389157769397272577:
+                case 389158652285812736:
+                case 389158814739464204:
+                    Section = "Careers";
+                    break;
+
+                case 405497289704996876:
+                    Section = "Airlock";
+                    break;
+
+                case 402896764446834688:
+                case 402896898505310218:
+                    Section = "Games";
+                    break;
+            }
+
+            if (Section != null)
             {
                 var OrigMessage = await message.DownloadAsync();
                 var GuildUser = CurrentGuild.GetUser(reaction.UserId);
-                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction));
+                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction, Section));
                 if (role != null)
                 {
                     await GuildUser.RemoveRoleAsync(role);
@@ -148,7 +183,6 @@ namespace DiscordBot
         private async Task MessageReceived(SocketMessage message)
         {
             string content = SanitizeContent(message.Content);
-            bool sfw = IsSafeForWork(content);
             string response = "";
             //if (!sfw)
             //{
@@ -159,40 +193,11 @@ namespace DiscordBot
                 string command = content.Substring(1, content.Length - 1);
                 response = adminBot.RunCommand(command, message);
             }
-            else if (message.MentionedUsers.SingleOrDefault(x => x.Username == BotUsername) != null && message.Author.Username != BotUsername)
-            {
-                if (sfw)
-                {
-                    response = await chatBot.GetResponse(content, message.Author.Username + message.Author.Id);
-                }
-                else
-                {
-                    response = "I don't feel comfortable talking about that.";
-                }
-                response = message.Author.Mention + " " + response;
-            }
+            
             if (!string.IsNullOrEmpty(response))
             {
                 await message.Channel.SendMessageAsync(response);
             }
-        }
-
-        private bool IsSafeForWork(string content)
-        {
-            bool safe = true;
-
-            IConfigurationSection profanitySection = Configuration.GetSection("Profanity");
-            var profanityList = profanitySection.AsEnumerable();
-            foreach (var bad in profanityList)
-            {
-                if (bad.Value != null && content.Contains(bad.Value))
-                {
-                    safe = false;
-                    break;
-                }
-            }
-
-            return safe;
         }
 
         private string SanitizeContent(string message)
