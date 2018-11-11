@@ -4,7 +4,12 @@
       "RoleId": "Arena Commander",
       "EmojiId": "🏅"
     },
-    
+
+    {
+      "RoleId": "ARMA 3",
+      "EmojiId": "salute"
+    },
+
     {
       "RoleId": "Racing",
       "EmojiId": "🏁"
@@ -36,11 +41,6 @@
     },
 
     {
-      "RoleId": "Elder Scrolls Online",
-      "EmojiId": "🚶"
-    },
-
-    {
       "RoleId": "Elite: Dangerous",
       "EmojiId": "🌌"
     },
@@ -48,6 +48,11 @@
     {
       "RoleId": "EVE Online",
       "EmojiId": "🕵"
+    },
+
+    {
+      "RoleId": "Fallout 76",
+      "EmojiId": "🚶"
     },
 
     {
@@ -103,6 +108,11 @@
     {
       "RoleId": "Stellaris",
       "EmojiId": "👾"
+    },
+
+    {
+      "RoleId": "Warframe",
+      "EmojiId": "🕺"
     },
 
     {
