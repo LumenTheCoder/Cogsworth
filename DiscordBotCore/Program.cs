@@ -26,7 +26,8 @@ namespace DiscordBot
         private string BotUsername;
         private IRole inGameRole;
         private IRole streamingRole;
-        private SocketGuild CurrentGuild; 
+        private IRole starCitizenRole;
+        private SocketGuild CurrentGuild;
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -75,34 +76,48 @@ namespace DiscordBot
 
         private async Task UpdateInGame(SocketGuildUser user)
         {
-            bool inGame = user.Game.HasValue;
-
+            bool inActivity = user.Activity.Type == ActivityType.Playing || user.Activity.Type == ActivityType.Streaming;
             if (inGameRole == null)
             {
-                inGameRole = _client.GetGuild(user.Guild.Id).Roles.FirstOrDefault(x => x.Name == "In Game");
+                inGameRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In Game");
             }
 
             if (streamingRole == null)
             {
-                streamingRole = _client.GetGuild(user.Guild.Id).Roles.FirstOrDefault(x => x.Name == "Streaming");
+                streamingRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "Streaming");
             }
 
-            if (inGame)
+            if (starCitizenRole == null)
             {
-                if (user.Game.Value.StreamType != StreamType.NotStreaming)
+                starCitizenRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In the Verse");
+            }
+
+            if (user.Activity.Type == ActivityType.Streaming)
+            {
+                await user.AddRoleAsync(streamingRole);
+            }
+            else
+            {
+                await user.RemoveRoleAsync(streamingRole);
+            }
+            
+            if (user.Activity.Type == ActivityType.Playing)
+            {
+                await user.AddRoleAsync(inGameRole);
+
+                if (user.Activity.Name == "Star Citizen")
                 {
-                    await user.AddRoleAsync(streamingRole);
+                    await user.AddRoleAsync(starCitizenRole);
                 }
                 else
                 {
-                    await user.RemoveRoleAsync(streamingRole);
+                    await user.RemoveRoleAsync(starCitizenRole);
                 }
-                await user.AddRoleAsync(inGameRole);
             }
             else
             {
                 await user.RemoveRoleAsync(inGameRole);
-                await user.RemoveRoleAsync(streamingRole);
+                await user.RemoveRoleAsync(starCitizenRole);
             }
         }
 
@@ -184,16 +199,13 @@ namespace DiscordBot
         {
             string content = SanitizeContent(message.Content);
             string response = "";
-            //if (!sfw)
-            //{
-            //    await message.DeleteAsync();
-            //}
+            
             if (content.Substring(0, 1) == adminBot.CommandPrefix)
             {
                 string command = content.Substring(1, content.Length - 1);
                 response = adminBot.RunCommand(command, message);
             }
-            
+
             if (!string.IsNullOrEmpty(response))
             {
                 await message.Channel.SendMessageAsync(response);
