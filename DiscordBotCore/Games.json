@@ -26,43 +26,13 @@
     },
 
     {
-      "RoleId": "Absolver",
-      "EmojiId": "🥊"
-    },
-
-    {
-      "RoleId": "Black Desert Online",
-      "EmojiId": "🏜"
-    },
-
-    {
       "RoleId": "Dark Souls",
-      "EmojiId": "🤸"
+      "EmojiId": "😈"
     },
 
     {
       "RoleId": "Elite: Dangerous",
-      "EmojiId": "🌌"
-    },
-
-    {
-      "RoleId": "EVE Online",
-      "EmojiId": "🕵"
-    },
-
-    {
-      "RoleId": "Fallout 76",
-      "EmojiId": "🚶"
-    },
-
-    {
-      "RoleId": "Gwent",
-      "EmojiId": "🎴"
-    },
-
-    {
-      "RoleId": "Hellion",
-      "EmojiId": "🌃"
+      "EmojiId": "☄"
     },
 
     {
@@ -71,18 +41,8 @@
     },
 
     {
-      "RoleId": "Overwatch",
-      "EmojiId": "🦍"
-    },
-
-    {
       "RoleId": "PUBG",
       "EmojiId": "🍗"
-    },
-
-    {
-      "RoleId": "Quake",
-      "EmojiId": "🎯"
     },
 
     {
@@ -96,16 +56,6 @@
     },
 
     {
-      "RoleId": "Space Engineers",
-      "EmojiId": "🏗"
-    },
-
-    {
-      "RoleId": "StarCraft",
-      "EmojiId": "👽"
-    },
-
-    {
       "RoleId": "Stellaris",
       "EmojiId": "👾"
     },
@@ -116,18 +66,8 @@
     },
 
     {
-      "RoleId": "War Thunder",
-      "EmojiId": "🛩"
-    },
-
-    {
-      "RoleId": "World of Tanks",
-      "EmojiId": "🏕"
-    },
-
-    {
       "RoleId": "World of Warships",
-      "EmojiId": "🚢"
+      "EmojiId": "🛳"
     },
 
     {

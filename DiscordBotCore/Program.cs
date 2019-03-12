@@ -21,13 +21,22 @@ namespace DiscordBot
     class Program
     {
         public static IConfigurationRoot Configuration { get; set; }
+
+        private readonly ulong[] GAMING_MESSAGES = { 529884359386202120, 529881177939509249, 402896764446834688 };
+        private readonly ulong[] CAREER_MESSAGES = { 389157769397272577, 389158652285812736, 389158814739464204 };
+        private readonly ulong AIRLOCK_MESSAGE = 405497289704996876;
+
         private DiscordSocketClient _client;
         private AdminBot adminBot;
+
         private string BotUsername;
+
         private IRole inGameRole;
         private IRole streamingRole;
         private IRole starCitizenRole;
+
         private SocketGuild CurrentGuild;
+
         public static void Main(string[] args)
             => new Program().MainAsync().GetAwaiter().GetResult();
 
@@ -125,22 +134,19 @@ namespace DiscordBot
         {
             string Section = null;
 
-            switch (message.Id)
+            if (GAMING_MESSAGES.Contains(message.Id))
             {
-                case 389157769397272577:
-                case 389158652285812736:
-                case 389158814739464204:
-                    Section = "Careers";
-                    break;
+                Section = "Games";
+            }
 
-                case 405497289704996876:
-                    Section = "Airlock";
-                    break;
+            if (CAREER_MESSAGES.Contains(message.Id))
+            {
+                Section = "Careers";
+            }
 
-                case 402896764446834688:
-                case 402896898505310218:
-                    Section = "Games";
-                    break;
+            if (AIRLOCK_MESSAGE == message.Id)
+            {
+                Section = "Airlock";
             }
 
             if (Section != null)
@@ -159,22 +165,19 @@ namespace DiscordBot
         {
             string Section = null;
 
-            switch (message.Id)
+            if (GAMING_MESSAGES.Contains(message.Id))
             {
-                case 389157769397272577:
-                case 389158652285812736:
-                case 389158814739464204:
-                    Section = "Careers";
-                    break;
+                Section = "Games";
+            }
+               
+            if (CAREER_MESSAGES.Contains(message.Id))
+            {
+                Section = "Careers";
+            }
 
-                case 405497289704996876:
-                    Section = "Airlock";
-                    break;
-
-                case 402896764446834688:
-                case 402896898505310218:
-                    Section = "Games";
-                    break;
+            if (AIRLOCK_MESSAGE == message.Id)
+            {
+                Section = "Airlock";
             }
 
             if (Section != null)
