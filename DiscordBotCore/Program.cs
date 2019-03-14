@@ -85,41 +85,50 @@ namespace DiscordBot
 
         private async Task UpdateInGame(SocketGuildUser user)
         {
-            bool inActivity = user.Activity.Type == ActivityType.Playing || user.Activity.Type == ActivityType.Streaming;
-            if (inGameRole == null)
-            {
-                inGameRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In Game");
-            }
+            IActivity activity = user.Activity;
 
-            if (streamingRole == null)
+            if (activity != null)
             {
-                streamingRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "Streaming");
-            }
-
-            if (starCitizenRole == null)
-            {
-                starCitizenRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In the Verse");
-            }
-
-            if (user.Activity.Type == ActivityType.Streaming)
-            {
-                await user.AddRoleAsync(streamingRole);
-            }
-            else
-            {
-                await user.RemoveRoleAsync(streamingRole);
-            }
-            
-            if (user.Activity.Type == ActivityType.Playing)
-            {
-                await user.AddRoleAsync(inGameRole);
-
-                if (user.Activity.Name == "Star Citizen")
+                if (inGameRole == null)
                 {
-                    await user.AddRoleAsync(starCitizenRole);
+                    inGameRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In Game");
+                }
+
+                if (streamingRole == null)
+                {
+                    streamingRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "Streaming");
+                }
+
+                if (starCitizenRole == null)
+                {
+                    starCitizenRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In the Verse");
+                }
+
+                if (user.Activity.Type == ActivityType.Streaming)
+                {
+                    await user.AddRoleAsync(streamingRole);
                 }
                 else
                 {
+                    await user.RemoveRoleAsync(streamingRole);
+                }
+
+                if (user.Activity.Type == ActivityType.Playing)
+                {
+                    await user.AddRoleAsync(inGameRole);
+
+                    if (user.Activity.Name == "Star Citizen")
+                    {
+                        await user.AddRoleAsync(starCitizenRole);
+                    }
+                    else
+                    {
+                        await user.RemoveRoleAsync(starCitizenRole);
+                    }
+                }
+                else
+                {
+                    await user.RemoveRoleAsync(inGameRole);
                     await user.RemoveRoleAsync(starCitizenRole);
                 }
             }
