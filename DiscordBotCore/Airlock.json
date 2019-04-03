@@ -1,7 +1,7 @@
 {
   "Airlock": [
     {
-      "RoleId": "Guest",
+      "RoleId": "In the Lobby",
       "EmojiId": "☑"
     }
   ]
