@@ -1,6 +1,61 @@
 {
   "Careers": [
     {
+      "RoleId": "Main Member",
+      "EmojiId": "Cognition_Corp"
+    },
+
+     {
+      "RoleId": "Affiliate Member",
+      "EmojiId": "👥"
+    },
+
+     {
+      "RoleId": "Guest",
+      "EmojiId": "🤝"
+    },
+
+    {
+      "RoleId": "Otaku",
+      "EmojiId": "sofia"
+    },
+
+     {
+      "RoleId": "Codeslinger",
+      "EmojiId": "💻"
+    },
+
+     {
+      "RoleId": "Concierge",
+      "EmojiId": "🎩"
+    },
+    
+    {
+      "RoleId": "Dungeon Master",
+      "EmojiId": "🐉"
+    },
+
+     {
+      "RoleId": "Roleplayer",
+      "EmojiId": "🎭"
+    },
+
+     {
+      "RoleId": "Languages",
+      "EmojiId": "🌐"
+    },
+    
+    {
+      "RoleId": "Reader",
+      "EmojiId": "📚"
+    },
+
+     {
+      "RoleId": "Discord Hopper",
+      "EmojiId": "all_the_things"
+    },
+    
+    {
       "RoleId": "Bounty Hunting",
       "EmojiId": "🤠"
     },
