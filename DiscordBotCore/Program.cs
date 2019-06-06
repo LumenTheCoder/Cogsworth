@@ -23,8 +23,7 @@ namespace DiscordBot
         public static IConfigurationRoot Configuration { get; set; }
 
         private readonly ulong[] GAMING_MESSAGES = { 529884359386202120, 529881177939509249, 402896764446834688 };
-        private readonly ulong[] FRONT_DESK1_MESSAGES = { 557428958623301632 };
-        private readonly ulong[] FRONT_DESK2_MESSAGES = { 557417887661424670, 557417910855925760, 557417932716638224 };
+        private readonly ulong[] FRONT_DESK_MESSAGES = { 557417887661424670, 557417910855925760, 557417932716638224 };
         private readonly ulong[] LANGUAGES_MESSAGES = { 554851978967121922, 554855130600701953, 554856439391322123, 554856499994951709 };
         private readonly ulong AIRLOCK_MESSAGE = 405497289704996876;
         private readonly ulong FEEDS_MESSAGE = 554840498175606784;
@@ -77,7 +76,7 @@ namespace DiscordBot
 
         private async Task GuildMemberUpdated(SocketGuildUser oldInfo, SocketGuildUser newInfo)
         {
-            await Task.Run(() => { UpdateInGame(newInfo); });
+            await Task.Run(async () => await UpdateInGame(newInfo));
         }
 
         private Task GuildAvailable(SocketGuild guild)
@@ -86,7 +85,7 @@ namespace DiscordBot
             return Task.FromResult(0);
         }
 
-        private void UpdateInGame(SocketGuildUser user)
+        private async Task UpdateInGame(SocketGuildUser user)
         {
             IActivity activity = user.Activity;
 
@@ -109,36 +108,36 @@ namespace DiscordBot
 
                 if (user.Activity.Type == ActivityType.Streaming)
                 {
-                    user.AddRoleAsync(streamingRole);
+                    await Task.Run(async () => await user.AddRoleAsync(streamingRole));
                 }
                 else
                 {
-                    user.RemoveRoleAsync(streamingRole);
+                    await Task.Run(async () => await user.RemoveRoleAsync(streamingRole));
                 }
 
                 if (user.Activity.Type == ActivityType.Playing)
                 {
-                    user.AddRoleAsync(inGameRole);
+                    await user.AddRoleAsync(inGameRole);
 
                     if (user.Activity.Name == "Star Citizen")
                     {
-                        user.AddRoleAsync(starCitizenRole);
+                        await Task.Run(async () => await user.AddRoleAsync(starCitizenRole));
                     }
                     else
                     {
-                        user.RemoveRoleAsync(starCitizenRole);
+                        await Task.Run(async () => await user.RemoveRoleAsync(starCitizenRole));
                     }
                 }
                 else
                 {
-                    user.RemoveRoleAsync(inGameRole);
-                    user.RemoveRoleAsync(starCitizenRole);
+                    await Task.Run(async () => await user.RemoveRoleAsync(inGameRole));
+                    await Task.Run(async () => await user.RemoveRoleAsync(starCitizenRole));
                 }
             }
             else
             {
-                user.RemoveRoleAsync(inGameRole);
-                user.RemoveRoleAsync(starCitizenRole);
+                await Task.Run(async () => await user.RemoveRoleAsync(inGameRole));
+                await Task.Run(async () => await user.RemoveRoleAsync(starCitizenRole));
             }
         }
 
@@ -151,16 +150,11 @@ namespace DiscordBot
                 Section = "Games";
             }
 
-            if (FRONT_DESK1_MESSAGES.Contains(message.Id))
+            if (FRONT_DESK_MESSAGES.Contains(message.Id))
             {
-                Section = "Front Desk 1";
+                Section = "Front-Desk";
             }
-
-            if (FRONT_DESK2_MESSAGES.Contains(message.Id))
-            {
-                Section = "Front-Desk2";
-            }
-
+            
             if (AIRLOCK_MESSAGE == message.Id)
             {
                 Section = "Airlock";
@@ -178,12 +172,12 @@ namespace DiscordBot
 
             if (Section != null)
             {
-                var OrigMessage = await message.DownloadAsync();
+                var OrigMessage = Task.Run(async () => await message.DownloadAsync());
                 var GuildUser = CurrentGuild.GetUser(reaction.UserId);
                 var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction, Section));
                 if (role != null)
                 {
-                    await Task.Run(() => { GuildUser.AddRoleAsync(role); });
+                    await Task.Run(async () => await GuildUser.AddRoleAsync(role));
                 }
             }
         }
@@ -197,14 +191,9 @@ namespace DiscordBot
                 Section = "Games";
             }
 
-            if (FRONT_DESK1_MESSAGES.Contains(message.Id))
+            if (FRONT_DESK_MESSAGES.Contains(message.Id))
             {
-                Section = "Front Desk 1";
-            }
-
-            if (FRONT_DESK2_MESSAGES.Contains(message.Id))
-            {
-                Section = "Front-Desk2";
+                Section = "Front-Desk";
             }
 
             if (AIRLOCK_MESSAGE == message.Id)
@@ -229,7 +218,7 @@ namespace DiscordBot
                 var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction, Section));
                 if (role != null)
                 {
-                    await Task.Run(() => { GuildUser.RemoveRoleAsync(role); });
+                    await Task.Run(async () => await GuildUser.RemoveRoleAsync(role));
                 }
             }
         }
@@ -253,7 +242,7 @@ namespace DiscordBot
 
             if (!string.IsNullOrEmpty(response))
             {
-                await message.Channel.SendMessageAsync(response);
+                await Task.Run(async () => await message.Channel.SendMessageAsync(response));
             }
         }
 
