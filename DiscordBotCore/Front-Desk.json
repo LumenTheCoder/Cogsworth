@@ -1,13 +1,8 @@
 {
   "Front-Desk2": [
     {
-      "RoleId": "Main Member",
+      "RoleId": "Member",
       "EmojiId": "Cognition_Corp"
-    },
-
-     {
-      "RoleId": "Affiliate Member",
-      "EmojiId": "👥"
     },
 
      {
