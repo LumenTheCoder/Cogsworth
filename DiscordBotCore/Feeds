@@ -1,0 +1,63 @@
+{
+  "list-of-feeds": [
+    {
+      "RoleId": "Bar Citizen",
+      "EmojiId": "🍻"
+    },
+
+     {
+      "RoleId": "Game Deals",
+      "EmojiId": "shutup_and_take_my_money"
+    },
+
+     {
+      "RoleId": "Gaming News",
+      "EmojiId": "🎮"
+    },
+
+    {
+      "RoleId": "IRL News",
+      "EmojiId": "📰"
+    },
+
+    {
+      "RoleId": "IRL Space News",
+      "EmojiId": "☄️"
+    },
+
+    {
+      "RoleId": "Org Recruitment",
+      "EmojiId": "📣"
+    },
+
+    {
+      "RoleId": "SC Comm Link",
+      "EmojiId": "📨"
+    },
+
+    {
+      "RoleId": "SC Community Content",
+      "EmojiId": "LUL"
+    },
+
+    {
+      "RoleId": "SC Podcasts",
+      "EmojiId": "🎙️"
+    },
+
+    {
+      "RoleId": "SC Social Media",
+      "EmojiId": "🤳"
+    },
+
+    {
+      "RoleId": "SC Official Videos",
+      "EmojiId": "📹"
+    },
+
+    {
+      "RoleId": "Stream Watcher",
+      "EmojiId": "relaysNehkara"
+    }
+  ]
+}
