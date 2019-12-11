@@ -1,10 +1,5 @@
 {
   "list-of-feeds": [
-    {
-      "RoleId": "Bar Citizen",
-      "EmojiId": "🍻"
-    },
-
      {
       "RoleId": "Game Deals",
       "EmojiId": "shutup_and_take_my_money"
@@ -22,37 +17,27 @@
 
     {
       "RoleId": "IRL Space News",
-      "EmojiId": "☄"
-    },
-
-    {
-      "RoleId": "Org Recruitment",
-      "EmojiId": "salute"
-    },
-
-    {
-      "RoleId": "SC Comm Link",
-      "EmojiId": "📨"
-    },
-
-    {
-      "RoleId": "SC Community Content",
-      "EmojiId": "boredhead"
-    },
-
-    {
-      "RoleId": "SC Podcasts",
       "EmojiId": "elon_not_bad"
     },
 
     {
-      "RoleId": "SC Social Media",
-      "EmojiId": "🤳"
+      "RoleId": "Jump Point",
+      "EmojiId": "item_box"
     },
 
     {
+      "RoleId": "Org Recruitment",
+      "EmojiId": "📢"
+    },
+
+    {
+      "RoleId": "SC Community Content",
+      "EmojiId": "🤓"
+    },
+    
+    {
       "RoleId": "SC Official Videos",
-      "EmojiId": "Star_Citizen"
+      "EmojiId": "Santa_Disco"
     },
 
     {
