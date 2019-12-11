@@ -10,37 +10,41 @@
       "EmojiId": "🎮"
     },
 
-    {
+     {
       "RoleId": "IRL News",
       "EmojiId": "📰"
     },
 
-    {
+     {
       "RoleId": "IRL Space News",
-      "EmojiId": "rocket"
+      "EmojiId": "🚀"
     },
 
-    {
+     {
       "RoleId": "Jump Point",
-      "EmojiId": "book"
+      "EmojiId": "🕮"
     },
 
-    {
+     {
       "RoleId": "Org Recruitment",
       "EmojiId": "🥳"
     },
 
-    {
+     {
+      "RoleId": "SC Dev Tracker",
+      "EmojiId": "benpopcorn"
+    },
+     {
       "RoleId": "SC Community Content",
       "EmojiId": "🎙️"
     },
     
-    {
+     {
       "RoleId": "SC Official Videos",
       "EmojiId": "santadisco"
     },
 
-    {
+     {
       "RoleId": "Stream Watcher",
       "EmojiId": "relaysNehkara"
     }
