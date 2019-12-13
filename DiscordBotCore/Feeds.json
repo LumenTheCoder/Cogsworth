@@ -1,8 +1,8 @@
 {
-  "list-of-feeds": [
+  "feeds": [
      {
       "RoleId": "Game Deals",
-      "EmojiId": "shutup_and_take_my_money"
+      "EmojiId": "shut_up_and_take_my_money"
     },
 
      {
@@ -41,7 +41,7 @@
     
      {
       "RoleId": "SC Official Videos",
-      "EmojiId": "santadisco"
+      "EmojiId": "Santa_Disco"
     },
 
      {
