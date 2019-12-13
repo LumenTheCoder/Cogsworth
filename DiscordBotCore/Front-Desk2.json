@@ -186,11 +186,6 @@
     },
 
     {
-      "RoleId": "Subscriber",
-      "EmojiId": ""
-    },
-
-    {
       "RoleId": "Video Editor",
       "EmojiId": "🎥"
     }
