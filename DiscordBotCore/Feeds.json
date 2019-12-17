@@ -16,7 +16,7 @@
     },
 
      {
-      "RoleId":555060622698610688,
+      "RoleId": "IRL Space News",
       "EmojiId": "🚀"
     },
 
@@ -27,11 +27,11 @@
 
      {
       "RoleId": "Org Recruitment",
-      "EmojiId": "🥳"
+      "EmojiId": "📣"
     },
 
      {
-      "RoleId": "555060792454807559",
+      "RoleId": "SC Dev Tracker",
       "EmojiId": "benpopcorn"
     },
      {
