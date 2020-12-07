@@ -21,13 +21,6 @@ namespace DiscordBot
     class Program
     {
         public static IConfigurationRoot Configuration { get; set; }
-
-        private readonly ulong[] GAMING_MESSAGES = { 529884359386202120, 529881177939509249, 402896764446834688 };
-        private readonly ulong[] FRONT_DESK_MESSAGES = { 557417887661424670, 557417910855925760, 557417932716638224 };
-        private readonly ulong[] LANGUAGES_MESSAGES = { 554851978967121922, 554855130600701953, 554856439391322123, 554856499994951709 };
-        private readonly ulong AIRLOCK_MESSAGE = 405497289704996876;
-        private readonly ulong FEEDS_MESSAGE = 554840498175606784;
-
         private DiscordSocketClient _client;
         private AdminBot adminBot;
 
@@ -54,6 +47,7 @@ namespace DiscordBot
             {
                 LogLevel = LogSeverity.Info,
                 DefaultRetryMode = RetryMode.AlwaysRetry,
+                AlwaysDownloadUsers = true
             });
             _client.Log += Log;
 
@@ -66,17 +60,16 @@ namespace DiscordBot
             adminBot = new AdminBot();
             _client.MessageReceived += MessageReceived;
             _client.GuildMemberUpdated += GuildMemberUpdated;
-            _client.ReactionAdded += ReactionRoleAdd;
-            _client.ReactionRemoved += ReactionRoleRemove;
 
             _client.GuildAvailable += GuildAvailable;
 
             await Task.Delay(-1);
         }
 
-        private async Task GuildMemberUpdated(SocketGuildUser oldInfo, SocketGuildUser newInfo)
+        private Task GuildMemberUpdated(SocketGuildUser oldInfo, SocketGuildUser newInfo)
         {
-            await Task.Run(async () => await UpdateInGame(newInfo));
+            _ = UpdateInGame(newInfo);
+            return Task.FromResult(0);
         }
 
         private Task GuildAvailable(SocketGuild guild)
@@ -89,137 +82,55 @@ namespace DiscordBot
         {
             IActivity activity = user.Activity;
 
+            if (inGameRole == null)
+            {
+                inGameRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In Game");
+            }
+
+            if (streamingRole == null)
+            {
+                streamingRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "Streaming");
+            }
+
+            if (starCitizenRole == null)
+            {
+                starCitizenRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In the Verse");
+            }
+
             if (activity != null)
             {
-                if (inGameRole == null)
+                if (activity.Type == ActivityType.Streaming)
                 {
-                    inGameRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In Game");
-                }
-
-                if (streamingRole == null)
-                {
-                    streamingRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "Streaming");
-                }
-
-                if (starCitizenRole == null)
-                {
-                    starCitizenRole = CurrentGuild.Roles.FirstOrDefault(x => x.Name == "In the Verse");
-                }
-
-                if (user.Activity.Type == ActivityType.Streaming)
-                {
-                    await Task.Run(async () => await user.AddRoleAsync(streamingRole));
+                    await user.AddRoleAsync(streamingRole);
                 }
                 else
                 {
-                    await Task.Run(async () => await user.RemoveRoleAsync(streamingRole));
+                    await user.RemoveRoleAsync(streamingRole);
                 }
 
-                if (user.Activity.Type == ActivityType.Playing)
+                if (activity.Type == ActivityType.Playing)
                 {
                     await user.AddRoleAsync(inGameRole);
 
-                    if (user.Activity.Name == "Star Citizen")
+                    if (activity.Name == "Star Citizen")
                     {
-                        await Task.Run(async () => await user.AddRoleAsync(starCitizenRole));
+                        await user.AddRoleAsync(starCitizenRole);
                     }
                     else
                     {
-                        await Task.Run(async () => await user.RemoveRoleAsync(starCitizenRole));
+                        await user.RemoveRoleAsync(starCitizenRole);
                     }
                 }
                 else
                 {
-                    await Task.Run(async () => await user.RemoveRoleAsync(inGameRole));
-                    await Task.Run(async () => await user.RemoveRoleAsync(starCitizenRole));
+                    await user.RemoveRoleAsync(inGameRole);
+                    await user.RemoveRoleAsync(starCitizenRole);
                 }
             }
             else
             {
-                await Task.Run(async () => await user.RemoveRoleAsync(inGameRole));
-                await Task.Run(async () => await user.RemoveRoleAsync(starCitizenRole));
-            }
-        }
-
-        private async Task ReactionRoleAdd(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
-        {
-            string Section = null;
-
-            if (GAMING_MESSAGES.Contains(message.Id))
-            {
-                Section = "Games";
-            }
-
-            if (FRONT_DESK_MESSAGES.Contains(message.Id))
-            {
-                Section = "Front-Desk";
-            }
-            
-            if (AIRLOCK_MESSAGE == message.Id)
-            {
-                Section = "Airlock";
-            }
-
-            if (FEEDS_MESSAGE == message.Id)
-            {
-                Section = "list-of-feeds";
-            }
-
-            if (LANGUAGES_MESSAGES.Contains(message.Id))
-            {
-                Section = "Languages";
-            }
-
-            if (Section != null)
-            {
-                var OrigMessage = Task.Run(async () => await message.DownloadAsync());
-                var GuildUser = CurrentGuild.GetUser(reaction.UserId);
-                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction, Section));
-                if (role != null)
-                {
-                    await Task.Run(async () => await GuildUser.AddRoleAsync(role));
-                }
-            }
-        }
-
-        private async Task ReactionRoleRemove(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
-        {
-            string Section = null;
-
-            if (GAMING_MESSAGES.Contains(message.Id))
-            {
-                Section = "Games";
-            }
-
-            if (FRONT_DESK_MESSAGES.Contains(message.Id))
-            {
-                Section = "Front-Desk";
-            }
-
-            if (AIRLOCK_MESSAGE == message.Id)
-            {
-                Section = "Airlock";
-            }
-
-            if (FEEDS_MESSAGE == message.Id)
-            {
-                Section = "list-of-feeds";
-            }
-
-            if (LANGUAGES_MESSAGES.Contains(message.Id))
-            {
-                Section = "Languages";
-            }
-
-            if (Section != null)
-            {
-                var OrigMessage = await message.DownloadAsync();
-                var GuildUser = CurrentGuild.GetUser(reaction.UserId);
-                var role = CurrentGuild.Roles.FirstOrDefault(x => x.Name == adminBot.GetRoleFromReaction(reaction, Section));
-                if (role != null)
-                {
-                    await Task.Run(async () => await GuildUser.RemoveRoleAsync(role));
-                }
+                await user.RemoveRoleAsync(inGameRole);
+                await  user.RemoveRoleAsync(starCitizenRole);
             }
         }
 
@@ -242,7 +153,7 @@ namespace DiscordBot
 
             if (!string.IsNullOrEmpty(response))
             {
-                await Task.Run(async () => await message.Channel.SendMessageAsync(response));
+                await message.Channel.SendMessageAsync(response);
             }
         }
 
@@ -250,9 +161,12 @@ namespace DiscordBot
         {
             string sanitized = message;
             sanitized = Regex.Replace(sanitized, "<.*?>", string.Empty);
-            if (sanitized.Substring(0, 1) == " ")
+            if (sanitized.Length > 0)
             {
-                sanitized = sanitized.Substring(1, sanitized.Length - 1);
+                if (sanitized.Substring(0, 1) == " ")
+                {
+                    sanitized = sanitized.Substring(1, sanitized.Length - 1);
+                }
             }
             return sanitized;
         }
