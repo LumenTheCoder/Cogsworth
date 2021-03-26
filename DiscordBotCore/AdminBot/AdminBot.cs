@@ -29,9 +29,11 @@ namespace DiscordBotCore.AdminBot
             var builder = new ConfigurationBuilder()
               .SetBasePath(Directory.GetCurrentDirectory())
              .AddJsonFile("commands.json", false, true)
-             .AddJsonFile("Careers.json", false, true)
+             .AddJsonFile("Front-Desk.json", false, true)
              .AddJsonFile("Airlock.json", false, true)
-             .AddJsonFile("Games.json", false, true);
+             .AddJsonFile("Games.json", false, true)
+             .AddJsonFile("Feeds.json", false, true)
+             .AddJsonFile("Languages.json", false, true);
 
             Configuration = builder.Build();
         }

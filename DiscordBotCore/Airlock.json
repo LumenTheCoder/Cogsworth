@@ -1,8 +1,13 @@
 {
   "Airlock": [
     {
+      "RoleId": "Member",
+      "EmojiId": "Cognition_Corp"
+    },
+
+    {
       "RoleId": "Guest",
-      "EmojiId": "☑"
+      "EmojiId": "🤝"
     }
   ]
 }

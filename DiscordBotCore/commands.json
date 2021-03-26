@@ -1,6 +1,6 @@
 ﻿{
   "options": {
-    "prefix": "$"
+    "prefix": ";"
   },
   "commands": [
     {

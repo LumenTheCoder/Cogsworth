@@ -1,0 +1,133 @@
+{
+  "Languages": [
+    {
+      "RoleId": "Afrikaans",
+      "EmojiId": "🇿🇦"
+    },
+
+     {
+      "RoleId": "中文",
+      "EmojiId": "🇨🇳"
+    },
+
+     {
+      "RoleId": "日本語",
+      "EmojiId": "🇯🇵"
+    },
+
+    {
+      "RoleId": "한국어",
+      "EmojiId": "🇰🇷"
+    },
+
+    {
+      "RoleId": "български",
+      "EmojiId": "🇧🇬"
+    },
+
+    {
+      "RoleId": "Dankse",
+      "EmojiId": "🇩🇰"
+    },
+
+    {
+      "RoleId": "Deutsch",
+      "EmojiId": "🇩🇪"
+    },
+
+    {
+      "RoleId": "Español",
+      "EmojiId": "🇪🇸"
+    },
+
+    {
+      "RoleId": "Français",
+      "EmojiId": "🇫🇷"
+    },
+
+    {
+      "RoleId": "ελληνικά",
+      "EmojiId": "🇬🇷"
+    },
+
+    {
+      "RoleId": "Italiano",
+      "EmojiId": "🇮🇹"
+    },
+
+    {
+      "RoleId": "Nederlands",
+      "EmojiId": "🇳🇱"
+    },
+
+    {
+      "RoleId": "Norsk",
+      "EmojiId": "🇳🇴"
+    },
+
+    {
+      "RoleId": "Polski",
+      "EmojiId": "🇵🇱"
+    },
+
+    {
+      "RoleId": "Português",
+      "EmojiId": "🇵🇹"
+    },
+
+    {
+      "RoleId": "Pу́сский язы́к",
+      "EmojiId": "🇷🇺"
+    },
+
+    {
+      "RoleId": "Română",
+      "EmojiId": "🇷🇴"
+    },
+
+    {
+      "RoleId": "Suomi",
+      "EmojiId": "🇫🇮"
+    },
+
+    {
+      "RoleId": "Svenska",
+      "EmojiId": "🇸🇪"
+    },
+
+    {
+      "RoleId": "український",
+      "EmojiId": "🇺🇦"
+    },
+
+    {
+      "RoleId": "العربية",
+      "EmojiId": "🇸🇦"
+    },
+
+    {
+      "RoleId": "עִברִית",
+      "EmojiId": "🇮🇱"
+    },
+
+    {
+      "RoleId": "Türk",
+      "EmojiId": "🇹🇷"
+    },
+
+    {
+      "RoleId": "Banu",
+      "EmojiId": "🌴"
+    },
+
+    {
+      "RoleId": "Vanduul",
+      "EmojiId": "🦈"
+    },
+
+    {
+      "RoleId": "Xi'An",
+      "EmojiId": "🐢"
+    }
+  ]
+}

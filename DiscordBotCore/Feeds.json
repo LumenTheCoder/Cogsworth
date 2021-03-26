@@ -1,26 +1,31 @@
 {
   "list-of-feeds": [
-     {
+    {
+      "RoleId": "Bar Citizen",
+      "EmojiId": "🍻"
+    },
+
+    {
       "RoleId": "Game Deals",
-      "EmojiId": "shut_up_and_take_my_money"
+      "EmojiId": "shutup_and_take_my_money"
     },
 
      {
       "RoleId": "Gaming News",
       "EmojiId": "🎮"
     },
-
-     {
+    
+    {
       "RoleId": "IRL News",
       "EmojiId": "📰"
     },
-
-     {
+    
+    {
       "RoleId": "IRL Space News",
       "EmojiId": "🚀"
     },
-
-     {
+    
+    {
       "RoleId": "Jump Point",
       "EmojiId": "🕮"
     },
@@ -30,21 +35,47 @@
       "EmojiId": "📣"
     },
 
-     {
+    {
       "RoleId": "SC Dev Tracker",
       "EmojiId": "benpopcorn"
     },
-     {
+    
+    {
       "RoleId": "SC Community Content",
       "EmojiId": "🎙️"
     },
     
-     {
+    {
       "RoleId": "SC Official Videos",
       "EmojiId": "Santa_Disco"
     },
+    
+    {
+      "RoleId": "SC Comm Link",
+      "EmojiId": "📨"
+    },
 
-     {
+    {
+      "RoleId": "SC Community Content",
+      "EmojiId": "lul"
+    },
+
+    {
+      "RoleId": "SC Podcasts",
+      "EmojiId": "🎙"
+    },
+
+    {
+      "RoleId": "SC Social Media",
+      "EmojiId": "🤳"
+    },
+
+    {
+      "RoleId": "SC Weekly Videos",
+      "EmojiId": "📹"
+    },
+
+    {
       "RoleId": "Stream Watcher",
       "EmojiId": "relaysNehkara"
     }
